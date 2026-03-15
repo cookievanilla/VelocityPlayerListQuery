@@ -33,21 +33,26 @@ import java.util.Optional;
                 @Dependency(id = "sayanvanish", optional = true)
         }
 )
-@FieldDefaults(level = AccessLevel.PRIVATE)
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class VelocityPlayerListQuery {
 
-    @Inject
     Logger logger;
-
-    @Inject
     ConfigService configService;
-
-    @Inject
     ServerPingProcessorRegistry serverPingProcessorRegistry;
-
-    @Inject
     Hooks hooks;
 
+    @Inject
+    public VelocityPlayerListQuery(
+            Logger logger,
+            ConfigService configService,
+            ServerPingProcessorRegistry serverPingProcessorRegistry,
+            Hooks hooks
+    ) {
+        this.logger = logger;
+        this.configService = configService;
+        this.serverPingProcessorRegistry = serverPingProcessorRegistry;
+        this.hooks = hooks;
+    }
 
     @Subscribe
     public void onProxyInitialization(ProxyInitializeEvent ignored) {
@@ -66,7 +71,6 @@ public class VelocityPlayerListQuery {
     public void onVelocityReload(ProxyReloadEvent ignored) {
         this.configService.reloadConfig();
     }
-
 
     @Subscribe
     public EventTask onServerPing(final ProxyPingEvent event) {

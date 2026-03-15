@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import com.velocitypowered.api.proxy.ProxyServer;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
+import org.slf4j.Logger;
 
 import javax.inject.Singleton;
 import java.util.Optional;
@@ -16,22 +17,20 @@ public class Hooks {
     SayanVanishHook sayanVanishHook;
 
     @Inject
-    public Hooks(ProxyServer server) {
-        this.vanishBridgeHook = server
-                .getPluginManager()
-                .isLoaded("vanishbridge")
-                ? new VanishBridgeHook(server)
+    public Hooks(ProxyServer server, Logger logger) {
+        this.vanishBridgeHook = server.getPluginManager().isLoaded("vanishbridge")
+                ? new VanishBridgeHook(server, logger)
                 : null;
         this.sayanVanishHook = server.getPluginManager().isLoaded("sayanvanish")
-                ? new SayanVanishHook(server)
+                ? new SayanVanishHook(server, logger)
                 : null;
     }
 
     public Optional<VanishBridgeHook> vanishBridge() {
-        return Optional.ofNullable(vanishBridgeHook);
+        return Optional.ofNullable(this.vanishBridgeHook);
     }
 
     public Optional<SayanVanishHook> sayanVanish() {
-        return Optional.ofNullable(sayanVanishHook);
+        return Optional.ofNullable(this.sayanVanishHook);
     }
 }

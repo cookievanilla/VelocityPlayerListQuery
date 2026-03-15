@@ -4,6 +4,7 @@ import com.velocitypowered.api.proxy.Player;
 import com.velocitypowered.api.proxy.ProxyServer;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
+import lombok.experimental.NonFinal;
 import org.slf4j.Logger;
 
 import java.lang.reflect.Method;
@@ -19,6 +20,7 @@ public class SayanVanishHook {
     ProxyServer server;
     Logger logger;
 
+    @NonFinal
     volatile boolean reflectionFailureLogged;
 
     public SayanVanishHook(ProxyServer server, Logger logger) {

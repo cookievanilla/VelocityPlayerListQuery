@@ -1,10 +1,10 @@
 package voruti.velocityplayerlistquery.service.serverpingprocessor;
 
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import lombok.Value;
 import lombok.experimental.Accessors;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import java.util.List;
 
 @Singleton
@@ -13,7 +13,6 @@ import java.util.List;
 public class ServerPingProcessorRegistry {
 
     List<ServerPingProcessor> serverPingProcessorList;
-
 
     @Inject
     public ServerPingProcessorRegistry(
